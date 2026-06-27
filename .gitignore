@@ -1,66 +1,79 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# =====================================================
+# Smart Village Dashboard
+# =====================================================
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+# =====================================================
+# Backend (Python)
+# =====================================================
+backend/venv/
+backend/.venv/
 
-# testing
-/coverage
+backend/__pycache__/
+backend/**/*.py[cod]
 
-# next.js
-/.next/
-/out/
+*.pyc
+*.pyo
+*.pyd
 
-# production
-/build
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
-# misc
-.DS_Store
-*.pem
+.coverage
+coverage.xml
+htmlcov/
 
-# debug
+# =====================================================
+# Environment
+# =====================================================
+backend/.env
+frontend/.env.local
+frontend/.env.production
+
+# Example env boleh di-commit
+!backend/.env.example
+!frontend/.env.example
+
+# =====================================================
+# Frontend (Next.js)
+# =====================================================
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+*.tsbuildinfo
+frontend/next-env.d.ts
+
+# =====================================================
+# Deployment
+# =====================================================
+.vercel/
+.turbo/
+
+# =====================================================
+# IDE
+# =====================================================
+.vscode/
+.idea/
+
+# =====================================================
+# Logs
+# =====================================================
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-# Python
-backend/venv/
-backend/__pycache__/
-backend/.pytest_cache/
-backend/.mypy_cache/
-
-# Next.js
-frontend/node_modules/
-frontend/.next/
-
-# Environment
-backend/.env
-frontend/.env.local
-
-# Python cache
-*.pyc
-__pycache__/
-
-# VS Code
-.vscode/
-
+# =====================================================
 # OS
+# =====================================================
 .DS_Store
 Thumbs.db
+Desktop.ini
+
+# =====================================================
+# Secrets
+# =====================================================
+*.pem
+*.key

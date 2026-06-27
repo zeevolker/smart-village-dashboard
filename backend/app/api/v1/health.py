@@ -3,19 +3,23 @@ from sqlalchemy import text
 
 from app.database.database import SessionLocal
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/health",
+    tags=["Health"],
+)
 
 
-@router.get("/db-test")
-def db_test():
+@router.get("")
+def health():
     db = SessionLocal()
 
     try:
         db.execute(text("SELECT 1"))
 
         return {
-            "status": "success",
-            "message": "Database connected!"
+            "status": "healthy",
+            "database": "connected",
+            "version": "1.0.0",
         }
 
     finally:
