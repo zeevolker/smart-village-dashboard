@@ -6,6 +6,11 @@ from app.schemas.user import UserCreate
 
 from app.auth.hashing import hash_password
 
+from app.auth.hashing import verify_password
+from app.auth.jwt import create_access_token
+
+from datetime import timedelta
+
 
 class UserService:
     def __init__(self, db: Session):
@@ -35,3 +40,25 @@ class UserService:
 
     def get_user(self, user_id):
         return self.repository.get_by_id(user_id)
+    
+    def login(
+        self,
+        email: str,
+        password: str,
+    ) -> str:
+
+        user = self.repository.get_by_email(email)
+
+        if not user:
+            raise ValueError("Invalid email or password.")
+
+        if not verify_password(
+            password,
+            user.password_hash,
+        ):
+            raise ValueError("Invalid email or password.")
+
+        return create_access_token(
+            subject=user.email,
+            expires_delta=timedelta(minutes=60),
+        )
