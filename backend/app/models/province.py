@@ -1,4 +1,3 @@
-import uuid
 from typing import TYPE_CHECKING
 
 from sqlalchemy import String
@@ -14,6 +13,12 @@ class Province(BaseModel):
     __tablename__ = "provinces"
 
     code: Mapped[str] = mapped_column(
+        String(2),
+        unique=True,
+        nullable=False,
+    )
+
+    bps_code: Mapped[str] = mapped_column(
         String(2),
         unique=True,
         nullable=False,

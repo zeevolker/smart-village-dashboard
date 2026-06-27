@@ -1,4 +1,5 @@
-import uuid
+from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 from sqlalchemy import ForeignKey, String
@@ -20,12 +21,18 @@ class District(BaseModel):
         nullable=False,
     )
 
+    bps_code: Mapped[str] = mapped_column(
+        String(7),
+        unique=True,
+        nullable=False,
+    )
+
     name: Mapped[str] = mapped_column(
         String(100),
         nullable=False,
     )
 
-    regency_id: Mapped[uuid.UUID] = mapped_column(
+    regency_id: Mapped[str] = mapped_column(
         ForeignKey("regencies.id"),
         nullable=False,
     )
@@ -33,7 +40,7 @@ class District(BaseModel):
     regency: Mapped["Regency"] = relationship(
         back_populates="districts",
     )
-    
+
     villages: Mapped[list["Village"]] = relationship(
         back_populates="district",
         cascade="all, delete-orphan",
