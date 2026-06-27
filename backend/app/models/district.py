@@ -8,6 +8,7 @@ from app.models.base_model import BaseModel
 
 if TYPE_CHECKING:
     from app.models.regency import Regency
+    from app.models.village import Village
 
 
 class District(BaseModel):
@@ -31,4 +32,9 @@ class District(BaseModel):
 
     regency: Mapped["Regency"] = relationship(
         back_populates="districts",
+    )
+    
+    villages: Mapped[list["Village"]] = relationship(
+        back_populates="district",
+        cascade="all, delete-orphan",
     )
