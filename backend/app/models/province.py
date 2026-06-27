@@ -5,6 +5,8 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from app.models.base_model import BaseModel
 
+from sqlalchemy.orm import relationship
+
 
 class Province(BaseModel):
     __tablename__ = "provinces"
@@ -19,4 +21,10 @@ class Province(BaseModel):
         String(100),
         unique=True,
         nullable=False,
+    )
+    
+    regencies = relationship(
+        "Regency",
+        back_populates="province",
+        cascade="all, delete-orphan",
     )
