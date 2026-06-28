@@ -1,6 +1,3 @@
-from app.schemas.user import (
-    UserBase,
-    UserCreate,
-    UserUpdate,
-    UserResponse,
-)
+"""
+Pydantic schemas package.
+"""

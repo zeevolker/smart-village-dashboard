@@ -9,6 +9,7 @@ from app.models.base_model import BaseModel
 
 if TYPE_CHECKING:
     from app.models.district import District
+    from app.models.citizen import Citizen
 
 
 class Village(BaseModel):
@@ -38,4 +39,9 @@ class Village(BaseModel):
 
     district: Mapped["District"] = relationship(
         back_populates="villages",
+    )
+    
+    citizens: Mapped[list["Citizen"]] = relationship(
+        back_populates="village",
+        cascade="all, delete-orphan",
     )

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from math import ceil
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Any
 
 from sqlalchemy import Select, func, select
 from sqlalchemy.orm import Session
@@ -98,3 +98,58 @@ class BaseRepository(Generic[ModelType]):
             total,
             pages,
         )
+        
+    def create(
+        self,
+        **data: Any,
+    ) -> ModelType:
+        """
+        Membuat data baru.
+        """
+
+        instance = self.model(
+            **data,
+        )
+
+        self.db.add(instance)
+
+        self.db.commit()
+
+        self.db.refresh(instance)
+
+        return instance
+    
+    def update(
+        self,
+        instance: ModelType,
+        **data: Any,
+    ) -> ModelType:
+        """
+        Memperbarui data.
+        """
+
+        for field, value in data.items():
+
+            setattr(
+                instance,
+                field,
+                value,
+            )
+
+        self.db.commit()
+
+        self.db.refresh(instance)
+
+        return instance
+    
+    def delete(
+        self,
+        instance: ModelType,
+    ) -> None:
+        """
+        Menghapus data.
+        """
+
+        self.db.delete(instance)
+
+        self.db.commit()
