@@ -1,0 +1,80 @@
+[
+    {
+        "kode_bps": "3201210001",
+        "nama_bps": "KARADENAN",
+        "kode_dagri": "32.01.01.1002",
+        "nama_dagri": "KARADENAN"
+    },
+    {
+        "kode_bps": "3201210002",
+        "nama_bps": "NANGGEWER",
+        "kode_dagri": "32.01.01.1004",
+        "nama_dagri": "NANGGEWER"
+    },
+    {
+        "kode_bps": "3201210003",
+        "nama_bps": "NANGGEWER MEKAR",
+        "kode_dagri": "32.01.01.1005",
+        "nama_dagri": "NANGGEWER MEKAR"
+    },
+    {
+        "kode_bps": "3201210004",
+        "nama_bps": "CIBINONG",
+        "kode_dagri": "32.01.01.1006",
+        "nama_dagri": "CIBINONG"
+    },
+    {
+        "kode_bps": "3201210005",
+        "nama_bps": "PAKANSARI",
+        "kode_dagri": "32.01.01.1007",
+        "nama_dagri": "PAKANSARI"
+    },
+    {
+        "kode_bps": "3201210006",
+        "nama_bps": "SUKAHATI",
+        "kode_dagri": "32.01.01.1009",
+        "nama_dagri": "SUKAHATI"
+    },
+    {
+        "kode_bps": "3201210007",
+        "nama_bps": "TENGAH",
+        "kode_dagri": "32.01.01.1008",
+        "nama_dagri": "TENGAH"
+    },
+    {
+        "kode_bps": "3201210008",
+        "nama_bps": "PONDOK RAJEG",
+        "kode_dagri": "32.01.01.1001",
+        "nama_dagri": "PONDOK RAJEG"
+    },
+    {
+        "kode_bps": "3201210009",
+        "nama_bps": "HARAPAN JAYA",
+        "kode_dagri": "32.01.01.1003",
+        "nama_dagri": "HARAPANJAYA"
+    },
+    {
+        "kode_bps": "3201210010",
+        "nama_bps": "PABUARAN",
+        "kode_dagri": "32.01.01.1012",
+        "nama_dagri": "PABUARAN"
+    },
+    {
+        "kode_bps": "3201210011",
+        "nama_bps": "CIRIMEKAR",
+        "kode_dagri": "32.01.01.1011",
+        "nama_dagri": "CIRIMEKAR"
+    },
+    {
+        "kode_bps": "3201210012",
+        "nama_bps": "CIRIUNG",
+        "kode_dagri": "32.01.01.1010",
+        "nama_dagri": "CIRIUNG"
+    },
+    {
+        "kode_bps": "3201210013",
+        "nama_bps": "PABUARAN MEKAR",
+        "kode_dagri": "32.01.01.1013",
+        "nama_dagri": "PABUARAN MEKAR"
+    }
+]

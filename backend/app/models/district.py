@@ -16,7 +16,7 @@ class District(BaseModel):
     __tablename__ = "districts"
 
     code: Mapped[str] = mapped_column(
-        String(7),
+        String(8),
         unique=True,
         nullable=False,
     )

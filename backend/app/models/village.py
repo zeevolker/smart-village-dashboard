@@ -15,7 +15,7 @@ class Village(BaseModel):
     __tablename__ = "villages"
 
     code: Mapped[str] = mapped_column(
-        String(10),
+        String(13),
         unique=True,
         nullable=False,
     )

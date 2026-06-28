@@ -1,40 +1,100 @@
-from typing import Generic, TypeVar
-from uuid import UUID
+from __future__ import annotations
 
-from sqlalchemy import select
+from math import ceil
+from typing import Generic, TypeVar
+
+from sqlalchemy import Select, func, select
 from sqlalchemy.orm import Session
 
 ModelType = TypeVar("ModelType")
 
 
 class BaseRepository(Generic[ModelType]):
-    """
-    Base Repository untuk operasi CRUD dasar.
-    """
 
-    def __init__(self, db: Session, model: type[ModelType]):
+    model: type[ModelType]
+
+    def __init__(
+        self,
+        db: Session,
+    ):
         self.db = db
-        self.model = model
 
-    def get_by_id(self, id: UUID) -> ModelType | None:
-        stmt = select(self.model).where(self.model.id == id)
-        result = self.db.execute(stmt)
+    def query(self) -> Select:
+        return select(self.model)
 
-        return result.scalar_one_or_none()
+    def get_by_id(
+        self,
+        id_: str,
+    ) -> ModelType | None:
 
-    def get_all(self) -> list[ModelType]:
-        stmt = select(self.model)
-        result = self.db.execute(stmt)
+        stmt = (
+            self.query()
+            .where(
+                self.model.id == id_
+            )
+        )
 
-        return list(result.scalars().all())
+        return self.db.scalar(stmt)
 
-    def create(self, obj: ModelType) -> ModelType:
-        self.db.add(obj)
-        self.db.commit()
-        self.db.refresh(obj)
+    def count(self) -> int:
 
-        return obj
+        stmt = (
+            select(func.count())
+            .select_from(self.model)
+        )
 
-    def delete(self, obj: ModelType) -> None:
-        self.db.delete(obj)
-        self.db.commit()
+        return self.db.scalar(stmt) or 0
+
+    def list_all(
+        self,
+        stmt: Select | None = None,
+    ) -> list[ModelType]:
+
+        if stmt is None:
+            stmt = self.query()
+
+        return list(
+            self.db.scalars(stmt)
+        )
+
+    def list_paginated(
+        self,
+        stmt: Select | None = None,
+        *,
+        page: int = 1,
+        size: int = 20,
+    ) -> tuple[list[ModelType], int, int]:
+
+        if stmt is None:
+            stmt = self.query()
+
+        page = max(page, 1)
+        size = max(size, 1)
+
+        total = (
+            self.db.scalar(
+                select(func.count())
+                .select_from(stmt.subquery())
+            )
+            or 0
+        )
+
+        rows = list(
+            self.db.scalars(
+                stmt.offset(
+                    (page - 1) * size
+                ).limit(size)
+            )
+        )
+
+        pages = (
+            ceil(total / size)
+            if total
+            else 0
+        )
+
+        return (
+            rows,
+            total,
+            pages,
+        )

@@ -1,0 +1,80 @@
+[
+    {
+        "kode_bps": "3201130001",
+        "nama_bps": "CIBANON",
+        "kode_dagri": "32.01.04.2004",
+        "nama_dagri": "CIBANON"
+    },
+    {
+        "kode_bps": "3201130002",
+        "nama_bps": "GUNUNG GEULIS",
+        "kode_dagri": "32.01.04.2001",
+        "nama_dagri": "GUNUNG GEULIS"
+    },
+    {
+        "kode_bps": "3201130003",
+        "nama_bps": "NAGRAK",
+        "kode_dagri": "32.01.04.2005",
+        "nama_dagri": "NAGRAK"
+    },
+    {
+        "kode_bps": "3201130004",
+        "nama_bps": "SUKATANI",
+        "kode_dagri": "32.01.04.2006",
+        "nama_dagri": "SUKATANI"
+    },
+    {
+        "kode_bps": "3201130005",
+        "nama_bps": "SUKARAJA",
+        "kode_dagri": "32.01.04.2007",
+        "nama_dagri": "SUKARAJA"
+    },
+    {
+        "kode_bps": "3201130006",
+        "nama_bps": "CIKEAS",
+        "kode_dagri": "32.01.04.2008",
+        "nama_dagri": "CIKEAS"
+    },
+    {
+        "kode_bps": "3201130007",
+        "nama_bps": "CADAS NGAMPAR",
+        "kode_dagri": "32.01.04.2012",
+        "nama_dagri": "CADASNGAMPAR"
+    },
+    {
+        "kode_bps": "3201130008",
+        "nama_bps": "PASIRLAJA",
+        "kode_dagri": "32.01.04.2013",
+        "nama_dagri": "PASIRLAJA"
+    },
+    {
+        "kode_bps": "3201130009",
+        "nama_bps": "CIJUJUNG",
+        "kode_dagri": "32.01.04.2011",
+        "nama_dagri": "CIJUJUNG"
+    },
+    {
+        "kode_bps": "3201130010",
+        "nama_bps": "CIMANDALA",
+        "kode_dagri": "32.01.04.2010",
+        "nama_dagri": "CIMANDALA"
+    },
+    {
+        "kode_bps": "3201130011",
+        "nama_bps": "PASIR JAMBU",
+        "kode_dagri": "32.01.04.2009",
+        "nama_dagri": "PASIRJAMBU"
+    },
+    {
+        "kode_bps": "3201130012",
+        "nama_bps": "CILEBUT TIMUR",
+        "kode_dagri": "32.01.04.2002",
+        "nama_dagri": "CILEBUT TIMUR"
+    },
+    {
+        "kode_bps": "3201130013",
+        "nama_bps": "CILEBUT BARAT",
+        "kode_dagri": "32.01.04.2003",
+        "nama_dagri": "CILEBUT BARAT"
+    }
+]

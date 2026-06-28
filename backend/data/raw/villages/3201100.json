@@ -1,0 +1,80 @@
+[
+    {
+        "kode_bps": "3201100001",
+        "nama_bps": "CILEUNGSI",
+        "kode_dagri": "32.01.24.2001",
+        "nama_dagri": "CILEUNGSI"
+    },
+    {
+        "kode_bps": "3201100002",
+        "nama_bps": "CITAPEN",
+        "kode_dagri": "32.01.24.2002",
+        "nama_dagri": "CITAPEN"
+    },
+    {
+        "kode_bps": "3201100003",
+        "nama_bps": "CIBEDUG",
+        "kode_dagri": "32.01.24.2003",
+        "nama_dagri": "CIBEDUG"
+    },
+    {
+        "kode_bps": "3201100004",
+        "nama_bps": "BOJONG MURNI",
+        "kode_dagri": "32.01.24.2010",
+        "nama_dagri": "BOJONGMURNI"
+    },
+    {
+        "kode_bps": "3201100005",
+        "nama_bps": "JAMBU LUWUK",
+        "kode_dagri": "32.01.24.2004",
+        "nama_dagri": "JAMBULUWUK"
+    },
+    {
+        "kode_bps": "3201100006",
+        "nama_bps": "BANJAR SARI",
+        "kode_dagri": "32.01.24.2005",
+        "nama_dagri": "BANJARSARI"
+    },
+    {
+        "kode_bps": "3201100007",
+        "nama_bps": "BANJAR WANGI",
+        "kode_dagri": "32.01.24.2011",
+        "nama_dagri": "BANJARWANGI"
+    },
+    {
+        "kode_bps": "3201100008",
+        "nama_bps": "BITUNG SARI",
+        "kode_dagri": "32.01.24.2013",
+        "nama_dagri": "BITUNGSARI"
+    },
+    {
+        "kode_bps": "3201100009",
+        "nama_bps": "TELUK PINANG",
+        "kode_dagri": "32.01.24.2006",
+        "nama_dagri": "TELUKPINANG"
+    },
+    {
+        "kode_bps": "3201100010",
+        "nama_bps": "BANJAR WARU",
+        "kode_dagri": "32.01.24.2007",
+        "nama_dagri": "BANJARWARU"
+    },
+    {
+        "kode_bps": "3201100011",
+        "nama_bps": "CIAWI",
+        "kode_dagri": "32.01.24.2012",
+        "nama_dagri": "CIAWI"
+    },
+    {
+        "kode_bps": "3201100012",
+        "nama_bps": "BENDUNGAN",
+        "kode_dagri": "32.01.24.2008",
+        "nama_dagri": "BENDUNGAN"
+    },
+    {
+        "kode_bps": "3201100013",
+        "nama_bps": "PANDANSARI",
+        "kode_dagri": "32.01.24.2009",
+        "nama_dagri": "PANDANSARI"
+    }
+]

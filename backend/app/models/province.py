@@ -26,7 +26,6 @@ class Province(BaseModel):
 
     name: Mapped[str] = mapped_column(
         String(100),
-        unique=True,
         nullable=False,
     )
 

@@ -5,6 +5,9 @@ from sqlalchemy.orm import Session
 
 
 class BulkInserter:
+    """
+    Bulk insert helper.
+    """
 
     def __init__(self, db: Session):
         self.db = db
@@ -18,14 +21,7 @@ class BulkInserter:
         if not rows:
             return
 
-        try:
-            self.db.execute(
-                insert(model),
-                rows,
-            )
-
-            self.db.commit()
-
-        except Exception:
-            self.db.rollback()
-            raise
+        self.db.execute(
+            insert(model),
+            rows,
+        )

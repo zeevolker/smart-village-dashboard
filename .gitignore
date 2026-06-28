@@ -77,3 +77,11 @@ Desktop.ini
 # =====================================================
 *.pem
 *.key
+
+# Reference datasets
+backend/data/*.csv
+backend/data/*.json
+
+# Keep documentation
+!backend/data/README.md
+!backend/data/.gitkeep

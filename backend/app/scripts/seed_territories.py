@@ -1,8 +1,31 @@
-from app.seeders.territory_seeder import TerritorySeeder
+from app.database.database import SessionLocal
+from app.etl.seeder import TerritorySeeder
 
 
 def main():
-    TerritorySeeder().run()
+
+    db = SessionLocal()
+
+    try:
+
+        seeder = TerritorySeeder(db)
+
+        seeder.run()
+
+        db.commit()
+
+        print()
+        print("✓ Territory seeding completed.")
+
+    except Exception:
+
+        db.rollback()
+
+        raise
+
+    finally:
+
+        db.close()
 
 
 if __name__ == "__main__":
