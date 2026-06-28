@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-from typing import Generic, TypeVar
+from typing import Any, Generic, TypeVar
 
 from pydantic import BaseModel
 
 T = TypeVar("T")
 
-from typing import Any
 
 class ApiResponse(
     BaseModel,
@@ -21,6 +20,7 @@ class ApiResponse(
     message: str = "Success"
 
     data: T
+
 
 def success_response(
     data: Any,

@@ -8,7 +8,6 @@ from app.api.v1.territories import (
 )
 from app.api.v1.users import router as user_router
 
-
 api_router = APIRouter(
     prefix="/api/v1",
 )

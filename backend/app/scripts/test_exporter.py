@@ -3,7 +3,7 @@ from app.etl.exporter import TerritoryExporter
 from app.etl.normalizer import TerritoryNormalizer
 
 
-def main():
+def main() -> None:
 
     normalizer = TerritoryNormalizer()
     cleaner = TerritoryCleaner()
@@ -17,11 +17,16 @@ def main():
     }
 
     for filename, rows in datasets.items():
+        cleaned = cleaner.clean(
+            rows,
+            filename.replace(".csv", ""),
+        )
 
         exporter.export_csv(
-            rows,
+            cleaned,
             filename,
         )
+
 
 if __name__ == "__main__":
     main()

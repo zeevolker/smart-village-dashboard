@@ -8,8 +8,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.models.base_model import BaseModel
 
 if TYPE_CHECKING:
-    from app.models.province import Province
     from app.models.district import District
+    from app.models.province import Province
 
 
 class Regency(BaseModel):
@@ -37,11 +37,11 @@ class Regency(BaseModel):
         nullable=False,
     )
 
-    province: Mapped["Province"] = relationship(
+    province: Mapped[Province] = relationship(
         back_populates="regencies",
     )
 
-    districts: Mapped[list["District"]] = relationship(
+    districts: Mapped[list[District]] = relationship(
         back_populates="regency",
         cascade="all, delete-orphan",
     )

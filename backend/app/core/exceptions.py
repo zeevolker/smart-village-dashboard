@@ -13,7 +13,6 @@ class AppException(Exception):
 
 
 class NotFoundException(AppException):
-
     def __init__(
         self,
         message: str = "Resource not found",
@@ -25,7 +24,6 @@ class NotFoundException(AppException):
 
 
 class BadRequestException(AppException):
-
     def __init__(
         self,
         message: str,
@@ -34,7 +32,8 @@ class BadRequestException(AppException):
             message,
             status_code=400,
         )
-        
+
+
 class ConflictException(AppException):
     """
     Conflict exception.

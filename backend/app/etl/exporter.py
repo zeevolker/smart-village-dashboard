@@ -4,7 +4,6 @@ import csv
 from pathlib import Path
 from typing import Any
 
-
 PROCESSED_DIR = Path("data/processed")
 
 
@@ -39,7 +38,6 @@ class TerritoryExporter:
             newline="",
             encoding="utf-8",
         ) as file:
-
             writer = csv.DictWriter(
                 file,
                 fieldnames=fieldnames,

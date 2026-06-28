@@ -1,18 +1,15 @@
 from fastapi import APIRouter, Depends, Path
 
 from app.dependencies.citizen import get_citizen_service
-
 from app.schemas.citizen import (
     CitizenCreate,
     CitizenResponse,
     CitizenUpdate,
 )
-
 from app.schemas.response import (
     ApiResponse,
     success_response,
 )
-
 from app.services.citizen_service import CitizenService
 
 router = APIRouter(

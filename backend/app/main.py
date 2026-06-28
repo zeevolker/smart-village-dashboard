@@ -1,11 +1,9 @@
 from fastapi import FastAPI
 
 from app.api.router import api_router
-
 from app.core.handlers import (
     register_exception_handlers,
 )
-
 from app.schemas.response import success_response
 
 app = FastAPI(
@@ -19,6 +17,7 @@ app = FastAPI(
 register_exception_handlers(app)
 
 app.include_router(api_router)
+
 
 @app.get("/")
 def root():

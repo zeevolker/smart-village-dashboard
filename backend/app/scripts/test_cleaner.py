@@ -16,16 +16,12 @@ def main():
     }
 
     for name, rows in datasets.items():
-
         cleaned = cleaner.clean(
             rows,
             name,
         )
 
-        print(
-            f"{name:<12}"
-            f"{len(cleaned)} valid rows"
-        )
+        print(f"{name:<12}{len(cleaned)} valid rows")
 
 
 if __name__ == "__main__":

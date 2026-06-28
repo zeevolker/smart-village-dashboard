@@ -6,9 +6,7 @@ from app.models.citizen import Citizen
 from app.repositories.base_repository import BaseRepository
 
 
-class CitizenRepository(
-    BaseRepository[Citizen]
-):
+class CitizenRepository(BaseRepository[Citizen]):
     """
     Repository untuk data Citizen.
     """
@@ -34,9 +32,7 @@ class CitizenRepository(
                     Citizen.full_name.ilike(f"%{keyword}%"),
                 )
             )
-            .order_by(
-                Citizen.full_name
-            )
+            .order_by(Citizen.full_name)
         )
 
         return self.list_paginated(
@@ -53,11 +49,6 @@ class CitizenRepository(
         Ambil citizen berdasarkan NIK.
         """
 
-        stmt = (
-            select(Citizen)
-            .where(
-                Citizen.nik == nik
-            )
-        )
+        stmt = select(Citizen).where(Citizen.nik == nik)
 
         return self.db.scalar(stmt)

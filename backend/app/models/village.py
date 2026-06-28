@@ -8,8 +8,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.models.base_model import BaseModel
 
 if TYPE_CHECKING:
-    from app.models.district import District
     from app.models.citizen import Citizen
+    from app.models.district import District
 
 
 class Village(BaseModel):
@@ -37,11 +37,11 @@ class Village(BaseModel):
         nullable=False,
     )
 
-    district: Mapped["District"] = relationship(
+    district: Mapped[District] = relationship(
         back_populates="villages",
     )
-    
-    citizens: Mapped[list["Citizen"]] = relationship(
+
+    citizens: Mapped[list[Citizen]] = relationship(
         back_populates="village",
         cascade="all, delete-orphan",
     )

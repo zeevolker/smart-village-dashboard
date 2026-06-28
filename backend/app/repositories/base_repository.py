@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from math import ceil
-from typing import Generic, TypeVar, Any
+from typing import Any, Generic, TypeVar
 
 from sqlalchemy import Select, func, select
 from sqlalchemy.orm import Session
@@ -10,7 +10,6 @@ ModelType = TypeVar("ModelType")
 
 
 class BaseRepository(Generic[ModelType]):
-
     model: type[ModelType]
 
     def __init__(
@@ -27,21 +26,13 @@ class BaseRepository(Generic[ModelType]):
         id_: str,
     ) -> ModelType | None:
 
-        stmt = (
-            self.query()
-            .where(
-                self.model.id == id_
-            )
-        )
+        stmt = self.query().where(self.model.id == id_)
 
         return self.db.scalar(stmt)
 
     def count(self) -> int:
 
-        stmt = (
-            select(func.count())
-            .select_from(self.model)
-        )
+        stmt = select(func.count()).select_from(self.model)
 
         return self.db.scalar(stmt) or 0
 
@@ -53,9 +44,7 @@ class BaseRepository(Generic[ModelType]):
         if stmt is None:
             stmt = self.query()
 
-        return list(
-            self.db.scalars(stmt)
-        )
+        return list(self.db.scalars(stmt))
 
     def list_paginated(
         self,
@@ -71,34 +60,18 @@ class BaseRepository(Generic[ModelType]):
         page = max(page, 1)
         size = max(size, 1)
 
-        total = (
-            self.db.scalar(
-                select(func.count())
-                .select_from(stmt.subquery())
-            )
-            or 0
-        )
+        total = self.db.scalar(select(func.count()).select_from(stmt.subquery())) or 0
 
-        rows = list(
-            self.db.scalars(
-                stmt.offset(
-                    (page - 1) * size
-                ).limit(size)
-            )
-        )
+        rows = list(self.db.scalars(stmt.offset((page - 1) * size).limit(size)))
 
-        pages = (
-            ceil(total / size)
-            if total
-            else 0
-        )
+        pages = ceil(total / size) if total else 0
 
         return (
             rows,
             total,
             pages,
         )
-        
+
     def create(
         self,
         **data: Any,
@@ -118,7 +91,7 @@ class BaseRepository(Generic[ModelType]):
         self.db.refresh(instance)
 
         return instance
-    
+
     def update(
         self,
         instance: ModelType,
@@ -129,7 +102,6 @@ class BaseRepository(Generic[ModelType]):
         """
 
         for field, value in data.items():
-
             setattr(
                 instance,
                 field,
@@ -141,7 +113,7 @@ class BaseRepository(Generic[ModelType]):
         self.db.refresh(instance)
 
         return instance
-    
+
     def delete(
         self,
         instance: ModelType,

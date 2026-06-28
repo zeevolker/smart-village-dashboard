@@ -7,7 +7,6 @@ def main():
     db = SessionLocal()
 
     try:
-
         seeder = TerritorySeeder(db)
 
         seeder.run()
@@ -18,13 +17,11 @@ def main():
         print("✓ Territory seeding completed.")
 
     except Exception:
-
         db.rollback()
 
         raise
 
     finally:
-
         db.close()
 
 

@@ -5,7 +5,6 @@ from app.models.village import Village
 
 
 class VillageRepository:
-
     def __init__(self, db: Session):
         self.db = db
 
@@ -16,14 +15,8 @@ class VillageRepository:
 
         stmt = (
             select(Village)
-            .where(
-                Village.district_id == district_id
-            )
-            .order_by(
-                Village.name
-            )
+            .where(Village.district_id == district_id)
+            .order_by(Village.name)
         )
 
-        return list(
-            self.db.scalars(stmt)
-        )
+        return list(self.db.scalars(stmt))

@@ -6,11 +6,10 @@ from typing import Any
 
 from sqlalchemy.orm import Session
 
+from app.models.district import District
 from app.models.province import Province
 from app.models.regency import Regency
-from app.models.district import District
 from app.models.village import Village
-
 
 PROCESSED_DIR = Path("data/processed")
 
@@ -41,10 +40,7 @@ class TerritorySeeder:
             encoding="utf-8",
             newline="",
         ) as file:
-
-            return list(
-                csv.DictReader(file)
-            )
+            return list(csv.DictReader(file))
 
     # =====================================================
     # Province
@@ -52,21 +48,16 @@ class TerritorySeeder:
 
     def seed_provinces(self):
 
-        rows = self._read_csv(
-            "provinces.csv"
-        )
+        rows = self._read_csv("provinces.csv")
 
         for row in rows:
-
             province = Province(
                 code=row["code"],
                 bps_code=row["bps_code"],
                 name=row["name"],
             )
 
-            self.db.add(
-                province
-            )
+            self.db.add(province)
 
         self.db.flush()
 
@@ -79,32 +70,21 @@ class TerritorySeeder:
     ) -> dict[str, str]:
 
         return {
-            province.code: province.id
-            for province in self.db.query(
-                Province
-            ).all()
+            province.code: province.id for province in self.db.query(Province).all()
         }
 
     def regency_map(
         self,
     ) -> dict[str, str]:
 
-        return {
-            regency.code: regency.id
-            for regency in self.db.query(
-                Regency
-            ).all()
-        }
+        return {regency.code: regency.id for regency in self.db.query(Regency).all()}
 
     def district_map(
         self,
     ) -> dict[str, str]:
 
         return {
-            district.code: district.id
-            for district in self.db.query(
-                District
-            ).all()
+            district.code: district.id for district in self.db.query(District).all()
         }
 
     # =====================================================
@@ -115,24 +95,17 @@ class TerritorySeeder:
 
         province_map = self.province_map()
 
-        rows = self._read_csv(
-            "regencies.csv"
-        )
+        rows = self._read_csv("regencies.csv")
 
         for row in rows:
-
             regency = Regency(
                 code=row["code"],
                 bps_code=row["bps_code"],
                 name=row["name"],
-                province_id=province_map[
-                    row["province_code"]
-                ],
+                province_id=province_map[row["province_code"]],
             )
 
-            self.db.add(
-                regency
-            )
+            self.db.add(regency)
 
         self.db.flush()
 
@@ -144,24 +117,17 @@ class TerritorySeeder:
 
         regency_map = self.regency_map()
 
-        rows = self._read_csv(
-            "districts.csv"
-        )
+        rows = self._read_csv("districts.csv")
 
         for row in rows:
-
             district = District(
                 code=row["code"],
                 bps_code=row["bps_code"],
                 name=row["name"],
-                regency_id=regency_map[
-                    row["regency_code"]
-                ],
+                regency_id=regency_map[row["regency_code"]],
             )
 
-            self.db.add(
-                district
-            )
+            self.db.add(district)
 
         self.db.flush()
 
@@ -173,24 +139,17 @@ class TerritorySeeder:
 
         district_map = self.district_map()
 
-        rows = self._read_csv(
-            "villages.csv"
-        )
+        rows = self._read_csv("villages.csv")
 
         for row in rows:
-
             village = Village(
                 code=row["code"],
                 bps_code=row["bps_code"],
                 name=row["name"],
-                district_id=district_map[
-                    row["district_code"]
-                ],
+                district_id=district_map[row["district_code"]],
             )
 
-            self.db.add(
-                village
-            )
+            self.db.add(village)
 
         self.db.flush()
 

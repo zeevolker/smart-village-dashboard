@@ -31,9 +31,7 @@ class BaseService(
         id_: str,
     ):
 
-        return self.repository.get_by_id(
-            id_
-        )
+        return self.repository.get_by_id(id_)
 
     def count(self):
 

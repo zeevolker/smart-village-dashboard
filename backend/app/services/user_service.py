@@ -1,15 +1,12 @@
+from datetime import timedelta
+
 from sqlalchemy.orm import Session
 
+from app.auth.hashing import hash_password, verify_password
+from app.auth.jwt import create_access_token
 from app.models.user import User
 from app.repositories.user_repository import UserRepository
 from app.schemas.user import UserCreate
-
-from app.auth.hashing import hash_password
-
-from app.auth.hashing import verify_password
-from app.auth.jwt import create_access_token
-
-from datetime import timedelta
 
 
 class UserService:
@@ -40,7 +37,7 @@ class UserService:
 
     def get_user(self, user_id):
         return self.repository.get_by_id(user_id)
-    
+
     def login(
         self,
         email: str,

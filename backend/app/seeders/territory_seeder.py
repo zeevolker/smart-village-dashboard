@@ -6,9 +6,7 @@ from app.models.district import District
 from app.models.province import Province
 from app.models.regency import Regency
 from app.models.village import Village
-
 from app.scripts.utils import csv_path
-
 from app.seeders.base_seeder import BaseSeeder
 from app.seeders.bulk_inserter import BulkInserter
 from app.seeders.csv_reader import CsvReader
@@ -83,9 +81,7 @@ class TerritorySeeder(BaseSeeder):
         parent_id = mapping.get(code)
 
         if parent_id is None:
-            raise ValueError(
-                f"{entity} code '{code}' not found."
-            )
+            raise ValueError(f"{entity} code '{code}' not found.")
 
         return parent_id
 
@@ -143,9 +139,7 @@ class TerritorySeeder(BaseSeeder):
 
         self.db.flush()
 
-        print(
-            f"✓ {len(rows):,} provinces inserted."
-        )
+        print(f"✓ {len(rows):,} provinces inserted.")
 
     # =====================================================
     # Regencies
@@ -170,7 +164,6 @@ class TerritorySeeder(BaseSeeder):
         data: list[dict[str, str]] = []
 
         for row in rows:
-
             data.append(
                 {
                     "code": row["code"],
@@ -191,9 +184,7 @@ class TerritorySeeder(BaseSeeder):
 
         self.db.flush()
 
-        print(
-            f"✓ {len(data):,} regencies inserted."
-        )
+        print(f"✓ {len(data):,} regencies inserted.")
 
     # =====================================================
     # Districts
@@ -218,7 +209,6 @@ class TerritorySeeder(BaseSeeder):
         data: list[dict[str, str]] = []
 
         for row in rows:
-
             data.append(
                 {
                     "code": row["code"],
@@ -239,9 +229,7 @@ class TerritorySeeder(BaseSeeder):
 
         self.db.flush()
 
-        print(
-            f"✓ {len(data):,} districts inserted."
-        )
+        print(f"✓ {len(data):,} districts inserted.")
 
     # =====================================================
     # Villages
@@ -266,7 +254,6 @@ class TerritorySeeder(BaseSeeder):
         data: list[dict[str, str]] = []
 
         for row in rows:
-
             data.append(
                 {
                     "code": row["code"],
@@ -287,6 +274,4 @@ class TerritorySeeder(BaseSeeder):
 
         self.db.flush()
 
-        print(
-            f"✓ {len(data):,} villages inserted."
-        )
+        print(f"✓ {len(data):,} villages inserted.")

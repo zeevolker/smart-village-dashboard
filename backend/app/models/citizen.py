@@ -31,6 +31,6 @@ class Citizen(BaseModel):
         nullable=False,
     )
 
-    village: Mapped["Village"] = relationship(
+    village: Mapped[Village] = relationship(
         back_populates="citizens",
     )

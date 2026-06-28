@@ -11,7 +11,6 @@ from app.etl.constants import (
     REQUEST_TIMEOUT,
 )
 
-
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -78,9 +77,7 @@ class BPSClient:
         """
 
         if level not in self.TERRITORY_ENDPOINTS:
-            raise ValueError(
-                f"Unknown level: {level}"
-            )
+            raise ValueError(f"Unknown level: {level}")
 
         response = self.session.get(
             self.TERRITORY_ENDPOINTS[level],
@@ -106,8 +103,6 @@ class BPSClient:
             print("==================\n")
 
         if not isinstance(data, list):
-            raise ValueError(
-                f"Unexpected response for level={level}"
-            )
+            raise ValueError(f"Unexpected response for level={level}")
 
         return data

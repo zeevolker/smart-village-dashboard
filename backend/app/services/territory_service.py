@@ -1,18 +1,15 @@
-from sqlalchemy.orm import Session
 from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 from app.repositories.district_repository import DistrictRepository
 from app.repositories.province_repository import ProvinceRepository
 from app.repositories.regency_repository import RegencyRepository
 from app.repositories.village_repository import VillageRepository
-
 from app.schemas.pagination import PaginationResult
-
 from app.services.base_service import BaseService
 
 
 class TerritoryService(BaseService):
-
     def __init__(
         self,
         db: Session,
@@ -30,19 +27,12 @@ class TerritoryService(BaseService):
         size: int,
     ) -> PaginationResult:
 
-        stmt = (
-            select(self.provinces.model)
-            .order_by(
-                self.provinces.model.name
-            )
-        )
+        stmt = select(self.provinces.model).order_by(self.provinces.model.name)
 
-        rows, total, pages = (
-            self.provinces.list_paginated(
-                stmt,
-                page=page,
-                size=size,
-            )
+        rows, total, pages = self.provinces.list_paginated(
+            stmt,
+            page=page,
+            size=size,
         )
 
         return PaginationResult(
@@ -57,22 +47,16 @@ class TerritoryService(BaseService):
         self,
         province_id: str,
     ):
-        return self.regencies.get_by_province(
-            province_id
-        )
+        return self.regencies.get_by_province(province_id)
 
     def get_districts(
         self,
         regency_id: str,
     ):
-        return self.districts.get_by_regency(
-            regency_id
-        )
+        return self.districts.get_by_regency(regency_id)
 
     def get_villages(
         self,
         district_id: str,
     ):
-        return self.villages.get_by_district(
-            district_id
-        )
+        return self.villages.get_by_district(district_id)

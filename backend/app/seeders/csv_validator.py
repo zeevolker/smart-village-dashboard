@@ -14,13 +14,7 @@ class CsvValidator:
 
         headers = list(rows[0].keys())
 
-        missing = [
-            header
-            for header in required_headers
-            if header not in headers
-        ]
+        missing = [header for header in required_headers if header not in headers]
 
         if missing:
-            raise ValueError(
-                f"Missing required headers: {', '.join(missing)}"
-            )
+            raise ValueError(f"Missing required headers: {', '.join(missing)}")

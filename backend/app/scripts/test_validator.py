@@ -3,12 +3,10 @@ from app.etl.normalizer import TerritoryNormalizer
 from app.etl.validator import TerritoryValidator
 
 
-def main():
+def main() -> None:
 
     normalizer = TerritoryNormalizer()
-
     cleaner = TerritoryCleaner()
-
     validator = TerritoryValidator()
 
     datasets = {
@@ -19,12 +17,14 @@ def main():
     }
 
     for name, rows in datasets.items():
-
-        validator.validate(rows)
-
-        print(
-            f"✓ {name:<12}{len(rows)} rows valid"
+        cleaned = cleaner.clean(
+            rows,
+            name,
         )
+
+        validator.validate(cleaned)
+
+        print(f"✓ {name:<12}{len(cleaned)} rows valid")
 
 
 if __name__ == "__main__":

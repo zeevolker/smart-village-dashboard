@@ -4,9 +4,7 @@ from app.models.regency import Regency
 from app.repositories.base_repository import BaseRepository
 
 
-class RegencyRepository(
-    BaseRepository[Regency]
-):
+class RegencyRepository(BaseRepository[Regency]):
     model = Regency
 
     def get_by_province(
@@ -16,14 +14,8 @@ class RegencyRepository(
 
         stmt = (
             select(Regency)
-            .where(
-                Regency.province_id == province_id
-            )
-            .order_by(
-                Regency.name
-            )
+            .where(Regency.province_id == province_id)
+            .order_by(Regency.name)
         )
 
-        return list(
-            self.db.scalars(stmt)
-        )
+        return list(self.db.scalars(stmt))

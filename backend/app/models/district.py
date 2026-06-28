@@ -37,11 +37,11 @@ class District(BaseModel):
         nullable=False,
     )
 
-    regency: Mapped["Regency"] = relationship(
+    regency: Mapped[Regency] = relationship(
         back_populates="districts",
     )
 
-    villages: Mapped[list["Village"]] = relationship(
+    villages: Mapped[list[Village]] = relationship(
         back_populates="district",
         cascade="all, delete-orphan",
     )

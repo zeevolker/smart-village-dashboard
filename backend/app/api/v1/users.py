@@ -1,15 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
+from app.auth.dependencies import get_current_user
+from app.auth.permissions import require_roles
 from app.database.dependencies import get_db
+from app.enums.user_role import UserRole
+from app.models.user import User
 from app.schemas.user import UserCreate, UserResponse
 from app.services.user_service import UserService
-
-from app.auth.dependencies import get_current_user
-from app.models.user import User
-
-from app.auth.permissions import require_roles
-from app.enums.user_role import UserRole
 
 router = APIRouter(
     prefix="/users",
@@ -35,8 +33,9 @@ def create_user(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(e),
-        )
-        
+        ) from e
+
+
 @router.get(
     "/me",
     response_model=UserResponse,
@@ -46,12 +45,9 @@ def get_me(
 ):
     return current_user
 
+
 @router.get("/admin-only")
 def admin_only(
-    current_user=Depends(
-        require_roles(UserRole.SUPER_ADMIN)
-    ),
+    current_user=Depends(require_roles(UserRole.SUPER_ADMIN)),
 ):
-    return {
-        "message": "Welcome Super Admin!"
-    }
+    return {"message": "Welcome Super Admin!"}

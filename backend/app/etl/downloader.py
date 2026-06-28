@@ -172,7 +172,7 @@ class TerritoryDownloader:
             )
 
         print("\n✓ All districts downloaded.")
-        
+
     def download_villages_by_regency(
         self,
         regency_code: str,

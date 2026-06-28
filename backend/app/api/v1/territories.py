@@ -2,26 +2,21 @@ from fastapi import APIRouter, Depends
 
 from app.dependencies.pagination import get_pagination
 from app.dependencies.territory import get_territory_service
-
 from app.schemas.pagination import (
     PaginationParams,
     PaginationResult,
 )
-
 from app.schemas.response import (
     ApiResponse,
     success_response,
 )
-
 from app.schemas.territory import (
+    DistrictResponse,
     ProvinceResponse,
     RegencyResponse,
-    DistrictResponse,
     VillageResponse,
 )
-
 from app.services.territory_service import TerritoryService
-
 
 router = APIRouter(
     prefix="/territories",
@@ -31,11 +26,7 @@ router = APIRouter(
 
 @router.get(
     "/provinces",
-    response_model=ApiResponse[
-        PaginationResult[
-            ProvinceResponse
-        ]
-    ],
+    response_model=ApiResponse[PaginationResult[ProvinceResponse]],
     summary="List provinces",
 )
 def get_provinces(
@@ -56,9 +47,7 @@ def get_provinces(
 
 @router.get(
     "/provinces/{province_id}/regencies",
-    response_model=ApiResponse[
-        list[RegencyResponse]
-    ],
+    response_model=ApiResponse[list[RegencyResponse]],
     summary="List regencies by province",
 )
 def get_regencies(
@@ -76,9 +65,7 @@ def get_regencies(
 
 @router.get(
     "/regencies/{regency_id}/districts",
-    response_model=ApiResponse[
-        list[DistrictResponse]
-    ],
+    response_model=ApiResponse[list[DistrictResponse]],
     summary="List districts by regency",
 )
 def get_districts(
@@ -96,9 +83,7 @@ def get_districts(
 
 @router.get(
     "/districts/{district_id}/villages",
-    response_model=ApiResponse[
-        list[VillageResponse]
-    ],
+    response_model=ApiResponse[list[VillageResponse]],
     summary="List villages by district",
 )
 def get_villages(

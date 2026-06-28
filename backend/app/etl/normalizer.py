@@ -52,9 +52,7 @@ class TerritoryNormalizer:
         rows: list[dict[str, Any]] = []
 
         for filepath in sorted(directory.glob("*.json")):
-            rows.extend(
-                self._load_json(filepath)
-            )
+            rows.extend(self._load_json(filepath))
 
         return rows
 
@@ -65,30 +63,22 @@ class TerritoryNormalizer:
     def load_provinces(
         self,
     ) -> list[dict[str, Any]]:
-        return self._load_json(
-            RAW_DIR / "provinces.json"
-        )
+        return self._load_json(RAW_DIR / "provinces.json")
 
     def load_regencies(
         self,
     ) -> list[dict[str, Any]]:
-        return self._load_directory(
-            RAW_DIR / "regencies"
-        )
+        return self._load_directory(RAW_DIR / "regencies")
 
     def load_districts(
         self,
     ) -> list[dict[str, Any]]:
-        return self._load_directory(
-            RAW_DIR / "districts"
-        )
+        return self._load_directory(RAW_DIR / "districts")
 
     def load_villages(
         self,
     ) -> list[dict[str, Any]]:
-        return self._load_directory(
-            RAW_DIR / "villages"
-        )
+        return self._load_directory(RAW_DIR / "villages")
 
     # ======================================================
     # Helpers
@@ -131,7 +121,6 @@ class TerritoryNormalizer:
         normalized: list[dict[str, str]] = []
 
         for row in rows:
-
             item = {
                 "code": row["kode_dagri"],
                 "bps_code": row["kode_bps"],
@@ -139,9 +128,7 @@ class TerritoryNormalizer:
             }
 
             if parent_key:
-                item[parent_key] = self._get_parent_code(
-                    row["kode_dagri"]
-                )
+                item[parent_key] = self._get_parent_code(row["kode_dagri"])
 
             normalized.append(item)
 

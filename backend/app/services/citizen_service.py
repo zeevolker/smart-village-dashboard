@@ -1,22 +1,17 @@
 from __future__ import annotations
 
-from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.exceptions import (
     ConflictException,
     NotFoundException,
 )
-
 from app.models.citizen import Citizen
-
 from app.repositories.citizen_repository import CitizenRepository
-
 from app.schemas.citizen import (
     CitizenCreate,
     CitizenUpdate,
 )
-
 from app.services.base_service import BaseService
 
 
@@ -47,14 +42,10 @@ class CitizenService(
         citizen_id: str,
     ) -> Citizen:
 
-        citizen = self.repository.get_by_id(
-            citizen_id
-        )
+        citizen = self.repository.get_by_id(citizen_id)
 
         if citizen is None:
-            raise NotFoundException(
-                "Citizen not found."
-            )
+            raise NotFoundException("Citizen not found.")
 
         return citizen
 
@@ -85,9 +76,7 @@ class CitizenService(
         )
 
         if exists:
-            raise ConflictException(
-                "NIK already exists."
-            )
+            raise ConflictException("NIK already exists.")
 
         return self.repository.create(
             **payload.model_dump(),

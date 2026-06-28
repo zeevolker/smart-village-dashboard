@@ -1,6 +1,3 @@
-from app.models.user import User
-from app.models.province import Province
-from app.models.regency import Regency
-from app.models.district import District
-from app.models.village import Village
-from app.models.citizen import Citizen
+"""
+Database models package.
+"""

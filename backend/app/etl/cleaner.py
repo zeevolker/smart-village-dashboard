@@ -41,8 +41,7 @@ class TerritoryCleaner:
 
         removed = 0
 
-        for dagri_code, candidates in groups.items():
-
+        for _dagri_code, candidates in groups.items():
             if len(candidates) == 1:
                 cleaned.append(candidates[0])
                 continue
@@ -56,9 +55,7 @@ class TerritoryCleaner:
             removed += len(candidates) - 1
 
         if removed:
-            print(
-                f"Cleaner removed {removed} duplicate rows."
-            )
+            print(f"Cleaner removed {removed} duplicate rows.")
 
         return cleaned
 
@@ -74,11 +71,7 @@ class TerritoryCleaner:
         # nama_bps == nama_dagri
 
         for row in candidates:
-            if (
-                row["nama_bps"].strip().upper()
-                ==
-                row["nama_dagri"].strip().upper()
-            ):
+            if row["nama_bps"].strip().upper() == row["nama_dagri"].strip().upper():
                 return row
 
         # Prioritas 2:
@@ -86,11 +79,9 @@ class TerritoryCleaner:
 
         return min(
             candidates,
-            key=lambda row: len(
-                row["kode_bps"]
-            ),
+            key=lambda row: len(row["kode_bps"]),
         )
-        
+
     def _remove_invalid_rows(
         self,
         rows: list[dict[str, Any]],
@@ -104,7 +95,6 @@ class TerritoryCleaner:
         removed = 0
 
         for row in rows:
-
             dagri = row.get("kode_dagri", "").strip()
 
             if not dagri:
@@ -114,8 +104,6 @@ class TerritoryCleaner:
             cleaned.append(row)
 
         if removed:
-            print(
-                f"Cleaner removed {removed} invalid rows."
-            )
+            print(f"Cleaner removed {removed} invalid rows.")
 
         return cleaned
