@@ -19,21 +19,24 @@ class CitizenRepository(BaseRepository[Citizen]):
         *,
         page: int = 1,
         size: int = 20,
-    ):
+    ) -> tuple[list[Citizen], int, int]:
         """
         Cari citizen berdasarkan NIK atau nama.
         """
 
-        stmt = (
-            select(Citizen)
-            .where(
+        keyword = keyword.strip()
+
+        stmt = select(Citizen)
+
+        if keyword:
+            stmt = stmt.where(
                 or_(
                     Citizen.nik.ilike(f"%{keyword}%"),
                     Citizen.full_name.ilike(f"%{keyword}%"),
                 )
             )
-            .order_by(Citizen.full_name)
-        )
+
+        stmt = stmt.order_by(Citizen.full_name)
 
         return self.list_paginated(
             stmt,

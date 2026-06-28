@@ -12,6 +12,7 @@ from app.schemas.citizen import (
     CitizenCreate,
     CitizenUpdate,
 )
+from app.schemas.pagination import PaginationResult
 from app.services.base_service import BaseService
 
 
@@ -54,12 +55,20 @@ class CitizenService(
         keyword: str,
         page: int,
         size: int,
-    ):
+    ) -> PaginationResult[Citizen]:
 
-        return self.repository.search(
+        rows, total, pages = self.repository.search(
             keyword,
             page=page,
             size=size,
+        )
+
+        return PaginationResult(
+            items=rows,
+            page=page,
+            size=size,
+            total=total,
+            pages=pages,
         )
 
     # -----------------------------

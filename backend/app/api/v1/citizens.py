@@ -1,10 +1,15 @@
-from fastapi import APIRouter, Depends, Path
+from fastapi import APIRouter, Depends, Path, Query
 
 from app.dependencies.citizen import get_citizen_service
+from app.dependencies.pagination import get_pagination
 from app.schemas.citizen import (
     CitizenCreate,
     CitizenResponse,
     CitizenUpdate,
+)
+from app.schemas.pagination import (
+    PaginationParams,
+    PaginationResult,
 )
 from app.schemas.response import (
     ApiResponse,
@@ -20,16 +25,23 @@ router = APIRouter(
 
 @router.get(
     "",
-    response_model=ApiResponse[list[CitizenResponse]],
-    summary="List citizens",
+    response_model=ApiResponse[PaginationResult[CitizenResponse]],
+    summary="List citizens with pagination",
 )
 def get_citizens(
-    service: CitizenService = Depends(
-        get_citizen_service,
+    pagination: PaginationParams = Depends(get_pagination),
+    q: str = Query(
+        default="",
+        description="Search by NIK or full name",
     ),
+    service: CitizenService = Depends(get_citizen_service),
 ):
     return success_response(
-        service.get_all(),
+        service.search(
+            keyword=q,
+            page=pagination.page,
+            size=pagination.size,
+        )
     )
 
 
@@ -39,10 +51,11 @@ def get_citizens(
     summary="Get citizen",
 )
 def get_citizen(
-    citizen_id: str = Path(...),
-    service: CitizenService = Depends(
-        get_citizen_service,
+    citizen_id: str = Path(
+        ...,
+        description="Citizen ID",
     ),
+    service: CitizenService = Depends(get_citizen_service),
 ):
     return success_response(
         service.get_by_id(
@@ -58,9 +71,7 @@ def get_citizen(
 )
 def create_citizen(
     payload: CitizenCreate,
-    service: CitizenService = Depends(
-        get_citizen_service,
-    ),
+    service: CitizenService = Depends(get_citizen_service),
 ):
     return success_response(
         service.create(
@@ -76,11 +87,12 @@ def create_citizen(
     summary="Update citizen",
 )
 def update_citizen(
-    citizen_id: str,
     payload: CitizenUpdate,
-    service: CitizenService = Depends(
-        get_citizen_service,
+    citizen_id: str = Path(
+        ...,
+        description="Citizen ID",
     ),
+    service: CitizenService = Depends(get_citizen_service),
 ):
     return success_response(
         service.update(
@@ -97,10 +109,11 @@ def update_citizen(
     summary="Delete citizen",
 )
 def delete_citizen(
-    citizen_id: str,
-    service: CitizenService = Depends(
-        get_citizen_service,
+    citizen_id: str = Path(
+        ...,
+        description="Citizen ID",
     ),
+    service: CitizenService = Depends(get_citizen_service),
 ):
     service.delete(
         citizen_id,
