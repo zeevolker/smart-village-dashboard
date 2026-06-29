@@ -5,22 +5,43 @@ import random
 
 class KKGenerator:
     """
-    Generate unique Indonesian-style Family Card (KK) numbers.
+    Generate synthetic Indonesian Family Card (KK) numbers.
 
     Format:
-        16 digit numeric string
+        PPPPKKXXXXXXXXXX
 
-    Note:
-        This is synthetic data intended for development and testing.
-        It does not represent real government-issued KK numbers.
+    PPPPKK : 6-digit region code
+    XXXXXX : 10-digit unique random number
+
+    This generator is intended for development/testing only.
     """
 
     _generated: set[str] = set()
 
     @classmethod
-    def generate(cls) -> str:
+    def generate(
+        cls,
+        *,
+        region_code: str,
+    ) -> str:
+        """
+        Generate a unique KK number.
+        """
+
+        if len(region_code) != 6:
+            raise ValueError(
+                "region_code must be exactly 6 digits."
+            )
+
         while True:
-            kk = "".join(random.choices("0123456789", k=16))
+            suffix = "".join(
+                random.choices(
+                    "0123456789",
+                    k=10,
+                )
+            )
+
+            kk = f"{region_code}{suffix}"
 
             if kk not in cls._generated:
                 cls._generated.add(kk)
@@ -30,6 +51,6 @@ class KKGenerator:
     def reset(cls) -> None:
         """
         Reset generated cache.
-        Useful for unit testing.
         """
+
         cls._generated.clear()
