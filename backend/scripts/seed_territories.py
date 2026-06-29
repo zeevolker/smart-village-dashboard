@@ -1,22 +1,28 @@
-from scripts.utils import csv_path
+from app.database.database import SessionLocal
+from app.etl.seeder import TerritorySeeder
 
 
 def main():
-    print("===================================")
-    print(" Smart Village Territory Seeder")
-    print("===================================")
 
-    print()
+    db = SessionLocal()
 
-    print("Dataset location:")
+    try:
+        seeder = TerritorySeeder(db)
 
-    print(csv_path("provinces.csv"))
+        seeder.run()
 
-    print(csv_path("regencies.csv"))
+        db.commit()
 
-    print(csv_path("districts.csv"))
+        print()
+        print("✓ Territory seeding completed.")
 
-    print(csv_path("villages.csv"))
+    except Exception:
+        db.rollback()
+
+        raise
+
+    finally:
+        db.close()
 
 
 if __name__ == "__main__":

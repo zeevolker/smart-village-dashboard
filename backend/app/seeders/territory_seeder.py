@@ -1,12 +1,12 @@
 from __future__ import annotations
 
+from backend.scripts.utils import csv_path
 from sqlalchemy import select
 
 from app.models.district import District
 from app.models.province import Province
 from app.models.regency import Regency
 from app.models.village import Village
-from app.scripts.utils import csv_path
 from app.seeders.base_seeder import BaseSeeder
 from app.seeders.bulk_inserter import BulkInserter
 from app.seeders.csv_reader import CsvReader

@@ -1,10 +1,12 @@
 from pathlib import Path
 
-DATA_DIR = Path(__file__).parent.parent / "data"
+BASE_DIR = Path(__file__).resolve().parents[2]
+
+DATA_DIR = BASE_DIR / "data"
 
 
 def csv_path(filename: str) -> Path:
     """
-    Mengembalikan path file CSV di folder data.
+    Mengembalikan path file CSV pada folder data.
     """
     return DATA_DIR / filename
