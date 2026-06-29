@@ -8,10 +8,12 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.enums.gender import Gender
 from app.enums.marital_status import MaritalStatus
+from app.enums.relationship import RelationshipType
 from app.enums.religion import Religion
 from app.models.base_model import BaseModel
 
 if TYPE_CHECKING:
+    from app.models.household import Household
     from app.models.village import Village
 
 
@@ -78,7 +80,7 @@ class Citizen(BaseModel):
     village: Mapped["Village"] = relationship(
         back_populates="citizens",
     )
-    
+
     household_id: Mapped[str | None] = mapped_column(
         ForeignKey(
             "households.id",
@@ -87,7 +89,14 @@ class Citizen(BaseModel):
         nullable=True,
     )
 
-    household = relationship(
-        "Household",
+    household: Mapped["Household | None"] = relationship(
         back_populates="citizens",
+    )
+
+    relationship_to_head: Mapped[RelationshipType | None] = mapped_column(
+        Enum(
+            RelationshipType,
+            name="relationship_type",
+        ),
+        nullable=True,
     )
