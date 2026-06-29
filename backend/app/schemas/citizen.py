@@ -7,6 +7,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from app.enums.gender import Gender
 from app.enums.marital_status import MaritalStatus
+from app.enums.relationship import RelationshipType
 from app.enums.religion import Religion
 
 
@@ -57,6 +58,10 @@ class CitizenBase(BaseModel):
 
     village_id: UUID
 
+    household_id: UUID | None = None
+
+    relationship_to_head: RelationshipType | None = None
+
 
 class CitizenCreate(CitizenBase):
     """
@@ -105,6 +110,10 @@ class CitizenUpdate(BaseModel):
     )
 
     village_id: UUID | None = None
+
+    household_id: UUID | None = None
+
+    relationship_to_head: RelationshipType | None = None
 
 
 class CitizenResponse(CitizenBase):
