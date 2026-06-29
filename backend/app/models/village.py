@@ -45,3 +45,8 @@ class Village(BaseModel):
         back_populates="village",
         cascade="all, delete-orphan",
     )
+    
+    households = relationship(
+        "Household",
+        back_populates="village",
+    )

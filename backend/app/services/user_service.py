@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from datetime import timedelta
 
 from sqlalchemy.orm import Session
@@ -10,52 +12,93 @@ from app.schemas.user import UserCreate
 
 
 class UserService:
-    def __init__(self, db: Session):
+    """
+    Service for User.
+    """
+
+    def __init__(
+        self,
+        db: Session,
+    ) -> None:
         self.repository = UserRepository(db)
 
-    def create_user(self, user_data: UserCreate) -> User:
+    def create_user(
+        self,
+        user_data: UserCreate,
+    ) -> User:
         """
-        Membuat user baru.
-        Password hashing akan ditambahkan pada sprint berikutnya.
+        Create new user.
         """
 
-        existing_user = self.repository.get_by_email(user_data.email)
-
-        if existing_user:
-            raise ValueError("Email is already registered.")
-
-        user = User(
-            full_name=user_data.full_name,
-            email=user_data.email,
-            password_hash=hash_password(user_data.password),
+        existing_user = self.repository.get_by_email(
+            user_data.email,
         )
 
-        return self.repository.create(user)
+        if existing_user:
+            raise ValueError(
+                "Email is already registered.",
+            )
 
-    def get_users(self) -> list[User]:
-        return self.repository.get_all()
+        return self.repository.create(
+            full_name=user_data.full_name,
+            email=user_data.email,
+            password_hash=hash_password(
+                user_data.password,
+            ),
+            role=user_data.role,
+            is_active=True,
+        )
 
-    def get_user(self, user_id):
-        return self.repository.get_by_id(user_id)
+    def get_users(
+        self,
+    ) -> list[User]:
+        """
+        Get all users.
+        """
+
+        return self.repository.list_all()
+
+    def get_user(
+        self,
+        user_id: str,
+    ) -> User | None:
+        """
+        Get user by id.
+        """
+
+        return self.repository.get_by_id(
+            user_id,
+        )
 
     def login(
         self,
         email: str,
         password: str,
     ) -> str:
+        """
+        Authenticate user.
+        """
 
-        user = self.repository.get_by_email(email)
+        user = self.repository.get_by_email(
+            email,
+        )
 
-        if not user:
-            raise ValueError("Invalid email or password.")
+        if user is None:
+            raise ValueError(
+                "Invalid email or password.",
+            )
 
         if not verify_password(
             password,
             user.password_hash,
         ):
-            raise ValueError("Invalid email or password.")
+            raise ValueError(
+                "Invalid email or password.",
+            )
 
         return create_access_token(
             subject=user.email,
-            expires_delta=timedelta(minutes=60),
+            expires_delta=timedelta(
+                minutes=60,
+            ),
         )

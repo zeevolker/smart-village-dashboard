@@ -78,3 +78,16 @@ class Citizen(BaseModel):
     village: Mapped["Village"] = relationship(
         back_populates="citizens",
     )
+    
+    household_id: Mapped[str | None] = mapped_column(
+        ForeignKey(
+            "households.id",
+            ondelete="SET NULL",
+        ),
+        nullable=True,
+    )
+
+    household = relationship(
+        "Household",
+        back_populates="citizens",
+    )

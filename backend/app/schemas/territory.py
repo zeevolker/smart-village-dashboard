@@ -1,8 +1,16 @@
+from __future__ import annotations
+
+from uuid import UUID
+
 from pydantic import BaseModel, ConfigDict
 
 
 class TerritoryBase(BaseModel):
-    id: str
+    """
+    Base response schema untuk seluruh data wilayah.
+    """
+
+    id: UUID
     code: str
     bps_code: str
     name: str
@@ -13,16 +21,32 @@ class TerritoryBase(BaseModel):
 
 
 class ProvinceResponse(TerritoryBase):
+    """
+    Province response.
+    """
+
     pass
 
 
 class RegencyResponse(TerritoryBase):
-    province_id: str
+    """
+    Regency response.
+    """
+
+    province_id: UUID
 
 
 class DistrictResponse(TerritoryBase):
-    regency_id: str
+    """
+    District response.
+    """
+
+    regency_id: UUID
 
 
 class VillageResponse(TerritoryBase):
-    district_id: str
+    """
+    Village response.
+    """
+
+    district_id: UUID
