@@ -20,3 +20,17 @@ class VillageRepository:
         )
 
         return list(self.db.scalars(stmt))
+    
+    def get_all(self) -> list[Village]:
+        """
+        Get all villages ordered by code.
+        """
+
+        stmt = (
+            select(Village)
+            .order_by(Village.code)
+        )
+
+        return list(
+            self.db.scalars(stmt)
+        )

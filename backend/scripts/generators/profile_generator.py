@@ -14,7 +14,7 @@ class ProfileGenerator:
     Generate demographic profiles for synthetic citizens.
     """
 
-    OCCUPATIONS = (
+    ADULT_OCCUPATIONS = (
         "Petani",
         "Pedagang",
         "Guru",
@@ -23,8 +23,6 @@ class ProfileGenerator:
         "Nelayan",
         "Buruh",
         "PNS",
-        "Mahasiswa",
-        "Pelajar",
     )
 
     RELIGIONS = tuple(Religion)
@@ -86,7 +84,13 @@ class ProfileGenerator:
     ) -> MaritalStatus:
 
         if relationship == RelationshipType.CHILD:
-            return MaritalStatus.SINGLE
+            if age < 21:
+                return MaritalStatus.SINGLE
+
+            return random.choices(
+                [MaritalStatus.SINGLE, MaritalStatus.MARRIED],
+                weights=[80, 20],
+            )[0]
 
         if age < 18:
             return MaritalStatus.SINGLE
@@ -123,9 +127,18 @@ class ProfileGenerator:
                     "Pelajar",
                 )
             )
+        
+        if age >= 60:
+            return random.choice(
+                (
+                    "Pensiunan",
+                    "Petani",
+                    "Pedagang",
+                )
+            )
 
         return random.choice(
-            cls.OCCUPATIONS
+            cls.ADULT_OCCUPATIONS
         )
         
     @classmethod
@@ -143,6 +156,19 @@ class ProfileGenerator:
         head_age = cls.generate_age(
             RelationshipType.HEAD,
         )
+        
+        family_religion = cls.generate_religion()
+        
+        child_count = relationships.count(
+            RelationshipType.CHILD
+        )
+
+        child_ages = cls.generate_children_ages(
+            count=child_count,
+            head_age=head_age,
+        )
+
+        child_index = 0
 
         profiles.append(
             FamilyProfile(
@@ -150,6 +176,8 @@ class ProfileGenerator:
                 gender=head_gender,
                 age=head_age,
                 marital_status=MaritalStatus.MARRIED,
+                religion=family_religion,
+                occupation=cls.generate_occupation(head_age),
             )
         )
 
@@ -174,10 +202,8 @@ class ProfileGenerator:
 
                 gender = random.choice(tuple(Gender))
 
-                age = random.randint(
-                    0,
-                    max(1, head_age - 20),
-                )
+                age = child_ages[child_index]
+                child_index += 1
 
                 marital = MaritalStatus.SINGLE
 
@@ -230,6 +256,8 @@ class ProfileGenerator:
                     gender=gender,
                     age=age,
                     marital_status=marital,
+                    religion=family_religion,
+                    occupation=cls.generate_occupation(age),
                 )
             )
 
@@ -270,9 +298,14 @@ class ProfileGenerator:
         if count == 0:
             return []
 
+        max_oldest = min(
+            25,
+            max(5, head_age - 20),
+        )
+
         oldest = random.randint(
-            0,
-            max(1, head_age - 20),
+            5,
+            max_oldest,
         )
 
         ages = [oldest]
@@ -282,8 +315,8 @@ class ProfileGenerator:
         for _ in range(count - 1):
 
             current = max(
-                0,
-                current - random.randint(1, 5),
+                1,
+                current - random.randint(2, 4),
             )
 
             ages.append(current)

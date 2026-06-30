@@ -5,14 +5,13 @@ from dataclasses import dataclass
 from app.enums.gender import Gender
 from app.enums.marital_status import MaritalStatus
 from app.enums.relationship import RelationshipType
+from app.enums.religion import Religion
 
 
 @dataclass(slots=True)
 class FamilyProfile:
     """
     Demographic profile for one family member.
-
-    This object is generated before CitizenData.
     """
 
     relationship: RelationshipType
@@ -22,3 +21,7 @@ class FamilyProfile:
     age: int
 
     marital_status: MaritalStatus
+
+    religion: Religion
+
+    occupation: str
