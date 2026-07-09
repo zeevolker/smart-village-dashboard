@@ -10,6 +10,7 @@ from app.api.v1.territories import (
     router as territory_router,
 )
 from app.api.v1.users import router as user_router
+from app.api.v1 import analytics
 
 api_router = APIRouter(
     prefix="/api/v1",
@@ -38,3 +39,5 @@ api_router.include_router(
 api_router.include_router(
     household_router,
 )
+
+api_router.include_router(analytics.router)
