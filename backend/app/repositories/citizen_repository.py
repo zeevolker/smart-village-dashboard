@@ -15,7 +15,7 @@ class CitizenRepository(BaseRepository[Citizen]):
 
     def search(
         self,
-        keyword: str,
+        keyword: str | None = None,
         *,
         page: int = 1,
         size: int = 20,
@@ -24,7 +24,7 @@ class CitizenRepository(BaseRepository[Citizen]):
         Cari citizen berdasarkan NIK atau nama.
         """
 
-        keyword = keyword.strip()
+        keyword = keyword.strip() if keyword else None
 
         stmt = select(Citizen)
 

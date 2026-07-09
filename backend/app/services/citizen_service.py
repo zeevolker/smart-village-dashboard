@@ -52,9 +52,9 @@ class CitizenService(
 
     def search(
         self,
-        keyword: str,
-        page: int,
-        size: int,
+        keyword: str | None = None,
+        page: int = 1,
+        size: int = 20,
     ) -> PaginationResult[Citizen]:
 
         rows, total, pages = self.repository.search(

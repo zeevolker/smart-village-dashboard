@@ -30,8 +30,8 @@ router = APIRouter(
 )
 def get_citizens(
     pagination: PaginationParams = Depends(get_pagination),
-    q: str = Query(
-        default="",
+    q: str | None = Query(
+        default=None,
         description="Search by NIK or full name",
     ),
     service: CitizenService = Depends(get_citizen_service),
@@ -58,7 +58,7 @@ def get_citizen(
     service: CitizenService = Depends(get_citizen_service),
 ):
     return success_response(
-        service.get_by_id(
+        service.get(
             citizen_id,
         )
     )
