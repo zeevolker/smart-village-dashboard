@@ -12,6 +12,8 @@ from app.api.v1.territories import (
 from app.api.v1.users import router as user_router
 from app.api.v1 import analytics
 
+from app.api.v1.dashboard import router as dashboard_router
+
 api_router = APIRouter(
     prefix="/api/v1",
 )
@@ -41,3 +43,7 @@ api_router.include_router(
 )
 
 api_router.include_router(analytics.router)
+
+api_router.include_router(
+    dashboard_router,
+)
