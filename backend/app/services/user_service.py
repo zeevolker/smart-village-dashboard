@@ -9,6 +9,10 @@ from app.auth.jwt import create_access_token
 from app.models.user import User
 from app.repositories.user_repository import UserRepository
 from app.schemas.user import UserCreate
+from app.core.exceptions import (
+    ConflictException,
+    UnauthorizedException,
+)
 
 
 class UserService:
@@ -35,7 +39,7 @@ class UserService:
         )
 
         if existing_user:
-            raise ValueError(
+            raise ConflictException(
                 "Email is already registered.",
             )
 
@@ -84,7 +88,7 @@ class UserService:
         )
 
         if user is None:
-            raise ValueError(
+            raise UnauthorizedException(
                 "Invalid email or password.",
             )
 
@@ -92,7 +96,7 @@ class UserService:
             password,
             user.password_hash,
         ):
-            raise ValueError(
+            raise UnauthorizedException(
                 "Invalid email or password.",
             )
 

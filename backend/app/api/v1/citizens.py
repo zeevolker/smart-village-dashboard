@@ -17,6 +17,10 @@ from app.schemas.response import (
 )
 from app.services.citizen_service import CitizenService
 
+from app.enums.gender import Gender
+from app.enums.marital_status import MaritalStatus
+from app.enums.religion import Religion
+
 router = APIRouter(
     prefix="/citizens",
     tags=["Citizens"],
@@ -34,11 +38,28 @@ def get_citizens(
         default=None,
         description="Search by NIK or full name",
     ),
+        gender: Gender | None = Query(
+        default=None,
+        description="Filter by gender",
+    ),
+
+    religion: Religion | None = Query(
+        default=None,
+        description="Filter by religion",
+    ),
+
+    marital_status: MaritalStatus | None = Query(
+        default=None,
+        description="Filter by marital status",
+    ),
     service: CitizenService = Depends(get_citizen_service),
 ):
     return success_response(
         service.search(
             keyword=q,
+            gender=gender,
+            religion=religion,
+            marital_status=marital_status,
             page=pagination.page,
             size=pagination.size,
         )

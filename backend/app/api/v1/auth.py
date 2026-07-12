@@ -1,6 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
+
+from app.auth.dependencies import get_current_user
+from app.models.user import User
+from app.schemas.user import UserResponse
 
 from app.database.dependencies import get_db
 from app.schemas.auth import TokenResponse
@@ -22,18 +26,26 @@ def login(
 ):
     service = UserService(db)
 
-    try:
-        token = service.login(
-            email=form_data.username,
-            password=form_data.password,
-        )
+    token = service.login(
+        email=form_data.username,
+        password=form_data.password,
+    )
 
-        return TokenResponse(
-            access_token=token,
-        )
+    return TokenResponse(
+        access_token=token,
+    )
+    
+@router.get(
+    "/me",
+    response_model=UserResponse,
+)
+def get_me(
+    current_user: User = Depends(
+        get_current_user,
+    ),
+):
+    """
+    Mengembalikan informasi user yang sedang login.
+    """
 
-    except ValueError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=str(exc),
-        ) from exc
+    return current_user

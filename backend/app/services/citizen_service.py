@@ -15,6 +15,10 @@ from app.schemas.citizen import (
 from app.schemas.pagination import PaginationResult
 from app.services.base_service import BaseService
 
+from app.enums.gender import Gender
+from app.enums.marital_status import MaritalStatus
+from app.enums.religion import Religion
+
 
 class CitizenService(
     BaseService[
@@ -53,12 +57,18 @@ class CitizenService(
     def search(
         self,
         keyword: str | None = None,
+        gender: Gender | None = None,
+        religion: Religion | None = None,
+        marital_status: MaritalStatus | None = None,
         page: int = 1,
         size: int = 20,
     ) -> PaginationResult[Citizen]:
 
         rows, total, pages = self.repository.search(
-            keyword,
+            keyword=keyword,
+            gender=gender,
+            religion=religion,
+            marital_status=marital_status,
             page=page,
             size=size,
         )

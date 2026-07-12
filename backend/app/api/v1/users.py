@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 
 from app.auth.dependencies import get_current_user
@@ -23,18 +23,15 @@ router = APIRouter(
 def create_user(
     user: UserCreate,
     db: Session = Depends(get_db),
+    _: User = Depends(
+        require_roles(
+            UserRole.SUPER_ADMIN,
+        ),
+    ),
 ):
     service = UserService(db)
 
-    try:
-        return service.create_user(user)
-
-    except ValueError as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e),
-        ) from e
-
+    return service.create_user(user)
 
 @router.get(
     "/me",

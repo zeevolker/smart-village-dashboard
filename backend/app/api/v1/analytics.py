@@ -5,7 +5,7 @@ from uuid import UUID
 
 from app.database.dependencies import get_db
 
-from app.repositories.analytics_repository import AnalyticsRepository
+from app.dependencies.analytics import get_analytics_service
 from app.schemas.analytics import (
     AnalyticsSummary,
     AnalyticsDemographics,
@@ -28,11 +28,10 @@ router = APIRouter(
     response_model=ApiResponse[AnalyticsSummary],
 )
 def get_summary(
-    db: Session = Depends(get_db),
+    service: AnalyticsService = Depends(
+        get_analytics_service,
+    ),
 ):
-
-    repository = AnalyticsRepository(db)
-    service = AnalyticsService(repository)
 
     return success_response(
         data=service.get_summary(),
@@ -44,11 +43,10 @@ def get_summary(
     response_model=ApiResponse[AnalyticsDemographics],
 )
 def get_demographics(
-    db: Session = Depends(get_db),
+    service: AnalyticsService = Depends(
+        get_analytics_service,
+    ),
 ):
-
-    repository = AnalyticsRepository(db)
-    service = AnalyticsService(repository)
 
     return success_response(
         data=service.get_demographics(),
@@ -77,11 +75,11 @@ def get_villages(
         default="asc",
         description="Sort order: asc or desc",
     ),
-    db: Session = Depends(get_db),
+    service: AnalyticsService = Depends(
+        get_analytics_service,
+    ),
 ):
-    repository = AnalyticsRepository(db)
-    service = AnalyticsService(repository)
-
+    
     return success_response(
         data=service.get_village_summary(
             page=page,

@@ -47,3 +47,21 @@ class ConflictException(AppException):
             message=message,
             status_code=409,
         )
+        
+class UnauthorizedException(AppException):
+    status_code = 401
+
+    def __init__(
+        self,
+        message: str = "Unauthorized.",
+    ):
+        super().__init__(message)
+        
+class ForbiddenException(AppException):
+    status_code = 403
+
+    def __init__(
+        self,
+        message: str = "Forbidden.",
+    ):
+        super().__init__(message)
