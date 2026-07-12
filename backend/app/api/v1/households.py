@@ -68,7 +68,7 @@ def get_household(
     ),
 ):
     return success_response(
-        service.get_by_id(
+        service.get(
             household_id,
         )
     )
