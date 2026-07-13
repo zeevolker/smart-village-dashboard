@@ -3,6 +3,7 @@ import axios from "axios";
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 10000,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
@@ -16,9 +17,9 @@ api.interceptors.request.use(
         ? localStorage.getItem("access_token")
         : null;
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+    // if (token) {
+    //   config.headers.Authorization = `Bearer ${token}`;
+    // }
 
     return config;
   },

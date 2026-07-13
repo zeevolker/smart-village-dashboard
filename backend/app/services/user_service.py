@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from datetime import timedelta
 
+from app.core.config import settings
+
 from sqlalchemy.orm import Session
 
 from app.auth.hashing import hash_password, verify_password
@@ -103,6 +105,6 @@ class UserService:
         return create_access_token(
             subject=user.email,
             expires_delta=timedelta(
-                minutes=60,
+                minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES,
             ),
         )

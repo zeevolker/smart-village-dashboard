@@ -1,20 +1,21 @@
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 
 from app.auth.jwt import decode_token
+from app.auth.token import get_token
 from app.database.dependencies import get_db
 from app.repositories.user_repository import UserRepository
 
-oauth2_scheme = OAuth2PasswordBearer(
-    tokenUrl="/api/v1/auth/login",
-)
-
-
 def get_current_user(
     db: Session = Depends(get_db),
-    token: str = Depends(oauth2_scheme),
+    token: str | None = Depends(get_token),
 ):
+    if token is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication credentials were not provided.",
+        )
+        
     try:
         payload = decode_token(token)
 
